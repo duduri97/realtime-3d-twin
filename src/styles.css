@@ -22,7 +22,18 @@ button:hover { background: #0369a1; }
 .pill.normal { background: #0ea5e922; color: #38bdf8; }
 .pill.warn { background: #f59e0b22; color: #fbbf24; }
 .pill.alarm { background: #ef444422; color: #f87171; }
-.selected-box { margin-top: 10px; padding: 8px 10px; border-radius: 8px; background: #0f172a; font-size: 0.8rem; border-left: 3px solid #38bdf8; }
+.selected-box { margin-top: 10px; padding: 8px 10px; border-radius: 8px; background: #0f172a; font-size: 0.79rem; border-left: 3px solid #38bdf8; display: flex; flex-direction: column; gap: 4px; }
+.sub-box { margin-top: 6px; padding-top: 6px; border-top: 1px dashed #334155; font-size: 0.75rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 3px; }
+.ack-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+.ack-row button { padding: 6px; font-size: 0.72rem; }
+.row-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.row-between h2 { margin: 0; }
+.mini-btn { padding: 4px 8px; font-size: 0.72rem; width: auto; }
+.eco-list { display: flex; flex-direction: column; gap: 6px; font-size: 0.78rem; }
+.eco-item { display: flex; justify-content: space-between; background: #0f172a; padding: 6px 8px; border-radius: 6px; }
+.eco-item strong.ok { color: #34d399; }
+.eco-item strong.muted { color: #94a3b8; }
+.hint { margin: 8px 0 0; font-size: 0.76rem; color: #94a3b8; }
 .alarm-panel { flex: 1; display: flex; flex-direction: column; min-height: 180px; }
 .alarm-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; max-height: 280px; }
 .alarm-list li { padding: 8px 10px; border-radius: 6px; background: #0f172a; cursor: pointer; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; }
