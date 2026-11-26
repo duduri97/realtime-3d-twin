@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/twincanvas.tsx","./src/ecosystemclient.ts","./src/main.tsx","./src/sensorstream.ts"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/map2dpanel.tsx","./src/twincanvas.tsx","./src/ecosystemclient.ts","./src/main.tsx","./src/sensorstream.ts"],"version":"5.9.3"}

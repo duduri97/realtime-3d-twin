@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { TwinCanvas, type RenderMetrics } from './TwinCanvas';
+import { Map2DPanel } from './Map2DPanel';
 import {
   createEquipmentGrid,
   stepTelemetry,
@@ -19,6 +20,7 @@ import {
 
 export default function App() {
   const [equipCount, setEquipCount] = useState(1600);
+  const [viewMode, setViewMode] = useState<'3D' | '2D' | 'SPLIT'>('SPLIT');
   const [useInstancing, setUseInstancing] = useState(true);
   const [streaming, setStreaming] = useState(true);
   const [revision, setRevision] = useState(0);
@@ -262,14 +264,52 @@ export default function App() {
       </aside>
 
       <main className="viewport">
-        <TwinCanvas
-          nodes={nodes}
-          useInstancing={useInstancing}
-          revision={revision}
-          focusIndex={focusIndex}
-          onSelectNode={inspectNodeAcrossEcosystem}
-          onMetrics={setMetrics}
-        />
+        <div className="view-mode-bar">
+          <button
+            className={viewMode === 'SPLIT' ? 'mode-btn active' : 'mode-btn'}
+            onClick={() => setViewMode('SPLIT')}
+          >
+            2D WMS · 3D 트윈 분할 연동
+          </button>
+          <button
+            className={viewMode === '3D' ? 'mode-btn active' : 'mode-btn'}
+            onClick={() => setViewMode('3D')}
+          >
+            3D 디지털 트윈 (Three.js)
+          </button>
+          <button
+            className={viewMode === '2D' ? 'mode-btn active' : 'mode-btn'}
+            onClick={() => setViewMode('2D')}
+          >
+            2D 이미지 지도 (OpenLayers · GeoServer WMS)
+          </button>
+        </div>
+
+        <div className={`stage stage-${viewMode.toLowerCase()}`}>
+          {(viewMode === '2D' || viewMode === 'SPLIT') && (
+            <div className="pane">
+              <Map2DPanel
+                nodes={nodes}
+                revision={revision}
+                selected={selected}
+                spatialOnline={conn.spatialOnline}
+                onSelectNode={inspectNodeAcrossEcosystem}
+              />
+            </div>
+          )}
+          {(viewMode === '3D' || viewMode === 'SPLIT') && (
+            <div className="pane">
+              <TwinCanvas
+                nodes={nodes}
+                useInstancing={useInstancing}
+                revision={revision}
+                focusIndex={focusIndex}
+                onSelectNode={inspectNodeAcrossEcosystem}
+                onMetrics={setMetrics}
+              />
+            </div>
+          )}
+        </div>
       </main>
     </div>
   );

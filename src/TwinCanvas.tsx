@@ -135,11 +135,13 @@ export function TwinCanvas({
     renderer.domElement.addEventListener('pointerdown', onPointerDown);
 
     const onResize = () => {
-      if (!container) return;
+      if (!container || container.clientWidth === 0 || container.clientHeight === 0) return;
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(container.clientWidth, container.clientHeight);
     };
+    const resizeObserver = new ResizeObserver(onResize);
+    resizeObserver.observe(container);
     window.addEventListener('resize', onResize);
 
     let animId = 0;
@@ -175,6 +177,7 @@ export function TwinCanvas({
 
     return () => {
       cancelAnimationFrame(animId);
+      resizeObserver.disconnect();
       window.removeEventListener('resize', onResize);
       renderer.domElement.removeEventListener('pointerdown', onPointerDown);
       controls.dispose();
